@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens recebidas</title>
+</head>
+
+<body>
+
+    <h1>Mensagens recebidas</h1>
+
+    <div class="navegacao">
+        <a href="/mensagens" class="botao">
+            Enviar mensagens
+        </a>
+
+        <a href="/recebidas" class="botao">
+            Mensagens recebidas
+        </a>
+
+        <a href="/servidor" class="botao voltar">
+            Voltar para o servidor
+        </a>
+    </div>
+
+    <hr>
+
+    {% for mensagem in mensagens %}
+
+        <div class="informacoes-servidor">
+            <h2>Mensagem recebida</h2>
+
+            <p>
+                <strong>De:</strong>
+                {{ mensagem.remetente }}
+            </p>
+
+            <p>
+                <strong>Mensagem criptografada:</strong>
+            </p>
+
+            <p>
+                {{ mensagem.mensagem }}
+            </p>
+
+            <p>
+                <strong>Formato:</strong>
+                {{ mensagem.formato }}
+            </p>
+
+            <form action="/descriptografar" method="POST" style="box-shadow: none; padding: 0; margin-top: 10px;">
+                <input
+                    type="hidden"
+                    name="indice"
+                    value="{{ mensagem.id }}"
+                >
+                <button type="submit">Descriptografar</button>
+            </form>
+
+            {% if mensagem.descriptografada %}
+                <p>
+                    <strong>Mensagem descriptografada:</strong>
+                </p>
+
+                <p>
+                    {{ mensagem.descriptografada }}
+                </p>
+            {% endif %}
+        </div>
+
+    {% else %}
+
+        <p>Nenhuma mensagem recebida.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp</title>
+</head>
+
+<body>
+
+    <h1>WhatsApp</h1>
+
+    <div class="informacoes-servidor">
+        <p>
+            <strong>De:</strong> {{ mensagem.remetente }}
+        </p>
+
+        <p>
+            <strong>Para:</strong> {{ mensagem.destinatario }}
+        </p>
+
+        <hr>
+
+        <h2>Mensagem</h2>
+
+        <textarea
+            id="mensagem"
+            rows="5"
+            readonly
+        >{{ mensagem.mensagem }}</textarea>
+
+        <button type="button" onclick="copiarMensagem()">
+            Copiar mensagem
+        </button>
+
+        <p id="resultado" style="color: #16a34a; font-weight: bold; margin-top: 10px;"></p>
+    </div>
+
+    <div class="navegacao">
+        <a href="/mensagens">
+            Enviar mensagens
+        </a>
+
+        <a href="/recebidas">
+            Mensagens recebidas
+        </a>
+    </div>
+
+    <script>
+        function copiarMensagem() {
+            const mensagem = document.getElementById("mensagem").value;
+            navigator.clipboard.writeText(mensagem);
+
+            document.getElementById("resultado").textContent = "Mensagem copiada!";
+        }
+    </script>
+
+</body>
+
+</html>

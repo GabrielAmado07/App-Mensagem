@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ servidor.nome }}</title>
+
+</head>
+
+<body>
+
+    <h1>{{ servidor.nome }}</h1>
+
+    <div class="informacoes-servidor">
+
+    <p>
+        Usuário: <strong>{{ usuario_atual }}</strong>
+    </p>
+
+    {% if usuario_atual == servidor.admin %}
+
+        <p class="administrador">
+            👑 Administrador
+        </p>
+
+        <h2>Usuários</h2>
+
+    <div class="usuarios">
+
+        {% for usuario in usuarios %}
+
+            <p>{{ usuario }}</p>
+
+        {% endfor %}
+
+    </div>
+
+        <hr>
+
+        <h2>Adicionar usuário</h2>
+
+        <form action="/adicionar_usuario" method="POST">
+
+            <input
+                type="text"
+                name="nome"
+                placeholder="Nome do usuário"
+                required
+            >
+
+            <button type="submit">
+                Adicionar usuário
+            </button>
+
+        </form>
+
+        <hr>
+
+        <h2>Excluir usuário</h2>
+
+        <form action="/deletar_usuario" method="POST">
+
+            <select name="nome">
+
+                {% for usuario in usuarios %}
+
+                    {% if usuario != servidor.admin %}
+
+                        <option value="{{ usuario }}">
+                            {{ usuario }}
+                        </option>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </select>
+
+            <button type="submit">
+                Excluir usuário
+            </button>
+
+        </form>
+    </div>
+    {% else %}
+
+        <p class="usuario-comum">
+            Usuário comum
+        </p>
+
+    {% endif %}
+
+    <hr>
+
+    <div class="navegacao">
+
+        <a href="/mensagens">
+            Enviar mensagens
+        </a>
+
+        <a href="/recebidas">
+            Mensagens recebidas
+        </a>
+
+    </div>
+
+</body>
+
+</html>

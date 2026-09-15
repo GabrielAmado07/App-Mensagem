@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Mensagens</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>Sistema de Mensagens</h1>
+
+    <form action="/usuario" method="POST">
+
+    <label for="usuario">Usuário atual:</label>
+
+    <select id="usuario" name="usuario">
+
+        {% for usuario in usuarios %}
+
+            <option value="{{ usuario }}"
+                {% if usuario == usuario_atual %}selected{% endif %}>
+                {{ usuario }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <button type="submit">Trocar usuário</button>
+
+</form>
+
+<h2>Criar servidor</h2>
+
+<form action="/criar_servidor" method="POST">
+
+    <label for="nome">Nome do servidor:</label>
+
+    <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Nome do servidor"
+        required
+    >
+
+    <br><br>
+
+    <label for="senha">Senha:</label>
+
+    <input
+        type="password"
+        id="senha"
+        name="senha"
+        placeholder="Senha do servidor"
+        required
+    >
+
+    <br><br>
+
+    <label for="admin">Nome do administrador:</label>
+
+    <input
+        type="text"
+        id="admin"
+        name="admin"
+        placeholder="Nome do administrador"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Criar servidor
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Adicionar usuário</h2>
+
+<form action="/adicionar_usuario" method="POST">
+
+    <input
+        type="text"
+        name="nome"
+        placeholder="Nome do usuário"
+        required
+    >
+
+    <button type="submit">
+        Adicionar usuário
+    </button>
+
+</form>
+
+<h2>Excluir usuário</h2>
+
+<form action="/deletar_usuario" method="POST">
+
+    <select name="nome">
+
+        {% for usuario in usuarios %}
+
+            <option value="{{ usuario }}">
+                {{ usuario }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <button type="submit">
+        Excluir usuário
+    </button>
+
+</form>
+
+    <nav>
+        <a href="/">Enviar mensagens</a>
+        <a href="/recebidas">Mensagens recebidas</a>
+    </nav>
+
+    <hr>
+
+    <h2>Enviar mensagem</h2>
+
+    <form action="/enviar" method="POST">
+
+        <label for="destinatario">Destinatário:</label>
+        <input type="text"
+               id="destinatario"
+               name="destinatario"
+               placeholder="Nome do destinatário"
+               required>
+
+        <br><br>
+
+        <label for="mensagem">Mensagem:</label>
+        <br>
+
+        <textarea id="mensagem"
+                  name="mensagem"
+                  placeholder="Digite a mensagem"
+                  required></textarea>
+
+        <br><br>
+
+        <label for="formato">Formato:</label>
+
+        <select id="formato" name="formato">
+            <option value="texto">Texto</option>
+            <option value="email">E-mail</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="download">Baixar mensagem</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Enviar mensagem</button>
+
+    </form>
+
+    {% if mensagem_criptografada %}
+
+        <h2>Mensagem criptografada:</h2>
+
+        <p>{{ mensagem_criptografada }}</p>
+
+    {% endif %}
+
+</body>
+</html>

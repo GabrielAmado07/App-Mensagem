@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens</title>
+</head>
+
+<body>
+
+    <h1>Mensagens</h1>
+
+    <p>
+        Usuário: {{ usuario_atual }}
+    </p>
+
+    <hr>
+
+    <h2>Enviar mensagem</h2>
+
+    <form action="/enviar" method="POST">
+
+        <label for="destinatario">
+            Destinatário:
+        </label>
+
+        <select id="destinatario" name="destinatario" required>
+
+            {% for usuario in usuarios %}
+
+                {% if usuario != usuario_atual %}
+
+                    <option value="{{ usuario }}">
+                        {{ usuario }}
+                    </option>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label for="mensagem">
+            Mensagem:
+        </label>
+
+        <br>
+
+        <textarea
+            id="mensagem"
+            name="mensagem"
+            rows="5"
+            cols="50"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <label for="formato">
+            Formato:
+        </label>
+
+        <select id="formato" name="formato">
+
+            <option value="texto">
+                Texto
+            </option>
+
+            <option value="whatsapp">
+                WhatsApp
+            </option>
+
+            <option value="email">
+                E-mail
+            </option>
+
+            <option value="download">
+                Baixar mensagem
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Enviar mensagem
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2>Descriptografar mensagem</h2>
+
+    <form action="/descriptografar_manual" method="POST">
+
+        <label for="mensagem_criptografada">
+            Cole a mensagem criptografada:
+        </label>
+
+        <br>
+
+        <textarea
+            id="mensagem_criptografada"
+            name="mensagem_criptografada"
+            rows="5"
+            cols="50"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Descriptografar
+        </button>
+
+    </form>
+
+    {% if mensagem_descriptografada %}
+
+        <h3>Mensagem descriptografada:</h3>
+
+        <p>
+            {{ mensagem_descriptografada }}
+        </p>
+
+    {% endif %}
+
+    <div class="navegacao">
+        <a href="/servidor" class="botao voltar">
+            Voltar para o servidor
+        </a>
+
+        <a href="/recebidas" class="botao">
+            Mensagens recebidas
+        </a>
+    </div>
+
+</body>
+
+</html>

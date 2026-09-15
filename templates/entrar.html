@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar no servidor</title>
+</head>
+<body>
+    <h1>Entrar no servidor</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alertas">
+          {% for message in messages %}
+            <p style="color: red; font-weight: bold;">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/entrar_servidor" method="POST">
+        <label for="nome_servidor">
+            Nome do servidor:
+        </label>
+        <input
+            type="text"
+            id="nome_servidor"
+            name="nome_servidor"
+            placeholder="Nome do servidor"
+            required
+        >
+
+        <br><br>
+
+        <label for="senha">
+            Senha:
+        </label>
+        <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Senha do servidor"
+            required
+        >
+
+        <br><br>
+
+        <label for="usuario">
+            Seu nome:
+        </label>
+        <input
+            type="text"
+            id="usuario"
+            name="usuario"
+            placeholder="Nome do usuário"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Entrar
+        </button>
+
+        <br><br>
+
+        <a href="/" class="botao voltar">
+            Voltar
+        </a>
+    </form>
+</body>
+</html>
