@@ -8,7 +8,7 @@ from email.message import EmailMessage
 from email.utils import formataddr
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 app.secret_key = "chave-do-sistema-de-mensagens"
 
@@ -469,5 +469,6 @@ def descriptografar_manual():
 
     return redirect(url_for("pagina_mensagens"))
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 
