@@ -30,27 +30,6 @@ def inicio():
     return render_template("inicio.html")
 
 
-@app.route("/trocar_usuario", methods=["POST"])
-def trocar_usuario():
-
-    usuario = request.form.get("usuario", "").strip()
-
-    if not usuario:
-        flash("Digite o nome do usuário.")
-        return redirect(url_for("inicio"))
-
-    if servidor["nome"] is None:
-        flash("Crie ou entre em um servidor antes de trocar de usuário.")
-        return redirect(url_for("inicio"))
-
-    if usuario not in servidor["usuarios"]:
-        flash("Esse usuário não faz parte do servidor.")
-        return redirect(url_for("inicio"))
-
-    session["usuario"] = usuario
-    return redirect(url_for("pagina_servidor"))
-
-
 @app.route("/enviar", methods=["POST"])
 def enviar():
 

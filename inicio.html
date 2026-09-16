@@ -15,39 +15,6 @@
 
     <h1>Sistema de Mensagens</h1>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="alertas">
-                {% for message in messages %}
-                    <p style="color: red; font-weight: bold;">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-
-    {% if session.get("usuario") %}
-        <h2>Trocar usuário</h2>
-
-        <form action="/trocar_usuario" method="POST">
-            <p>Usuário atual: <strong>{{ session["usuario"] }}</strong></p>
-
-            <label for="usuario">Novo usuário:</label>
-            <input
-                type="text"
-                id="usuario"
-                name="usuario"
-                placeholder="Nome do usuário"
-                required
-            >
-
-            <button type="submit">
-                Trocar usuário
-            </button>
-        </form>
-
-        <hr>
-    {% endif %}
-
     <h2>Criar servidor</h2>
 
     <form action="/criar_servidor" method="POST">
